@@ -29,82 +29,63 @@
             </div>
             <div class="checkout__form">
                 <h4>Billing Details</h4>
-                <form action="#">
+                    <form action="{{url("/checkout")}}" method="post">
+                        @csrf
                     <div class="row">
                         <div class="col-lg-8 col-md-6">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
-                                        <p>Fist Name<span>*</span></p>
-                                        <input type="text" required>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="checkout__input">
-                                        <p>Last Name<span>*</span></p>
-                                        <input type="text" required>
+                                        <p>Name<span>*</span></p>
+                                        <input name="full_name" type="text" value="{{old("full_name")}}" placeholder="Full Name">
+                                        @error("full_name")
+                                        <p class="text-danger"><i>{{$message}}</i></p>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
-                            <div class="checkout__input">
-                                <p>Country<span>*</span></p>
-                                <input type="text" required>
-                            </div>
+
                             <div class="checkout__input">
                                 <p>Address<span>*</span></p>
-                                <input type="text" placeholder="Street Address" class="checkout__input__add" required>
-                                <input type="text" placeholder="Apartment, suite, unite ect (optinal)" required>
-                            </div>
-                            <div class="checkout__input">
-                                <p>Town/City<span>*</span></p>
-                                <input type="text" required>
-                            </div>
-                            <div class="checkout__input">
-                                <p>Country/State<span>*</span></p>
-                                <input type="text" required>
-                            </div>
-                            <div class="checkout__input">
-                                <p>Postcode / ZIP<span>*</span></p>
-                                <input type="text" required>
+                                <input type="text" name="address" placeholder="Address" class="checkout__input__add" >
+                                @error("address")
+                                <p class="text-danger"><i>{{$message}}</i></p>
+                                @enderror
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
-                                        <p>Phone<span>*</span></p>
-                                        <input type="text" required>
+                                        <p>Telephone<span>*</span></p>
+                                        <input name="tel" type="text" value="{{old("tel")}}" placeholder="Telephone" >
+                                        @error("tel")
+                                        <p class="text-danger"><i>{{$message}}</i></p>
+                                        @enderror
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="checkout__input">
-                                        <p>Email<span>*</span></p>
-                                        <input type="text" required>
-                                    </div>
+                                        <div class="checkout__input">
+                                            <p>Email<span>*</span></p>
+                                            <input name="email" type="email" placeholder="Email">
+                                            @error("email")
+                                            <p class="text-danger"><i>{{$message}}</i></p>
+                                            @enderror
+                                        </div>
                                 </div>
                             </div>
                             <div class="checkout__input__checkbox">
+                                <p>Shipping method<span>*</span></p>
                                 <label for="acc">
-                                    Create an account?
-                                    <input type="checkbox" id="acc" required>
+                                    Express
+                                    <input name="shipping_method" value="Express" type="radio" id="acc" @if(old("shipping_method")=="Express") checked  @endif>
                                     <span class="checkmark"></span>
                                 </label>
-                            </div>
-                            <p>Create an account by entering the information below. If you are a returning customer
-                                please login at the top of the page</p>
-                            <div class="checkout__input">
-                                <p>Account Password<span>*</span></p>
-                                <input type="text" required>
-                            </div>
-                            <div class="checkout__input__checkbox">
-                                <label for="diff-acc">
-                                    Ship to a different address?
-                                    <input type="checkbox" id="diff-acc" required>
+                                <br/>
+                                <label for="free">
+                                    Free Shipping
+                                    <input name="shipping_method" @if(old("shipping_method")== "Free_Shipping") checked @endif value="Free_Shipping" type="radio" id="free">
                                     <span class="checkmark"></span>
                                 </label>
-                            </div>
-                            <div class="checkout__input">
-                                <p>Order notes<span>*</span></p>
-                                <input type="text"
-                                       placeholder="Notes about your order, e.g. special notes for delivery." required>
+                                @error("shipping_method")
+                                <p class="text-danger"><i>{{$message}}</i></p>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-6">
@@ -118,29 +99,25 @@
                                 </ul>
                                 <div class="checkout__order__subtotal">Subtotal <span>${{$subtotal}}</span></div>
                                 <div class="checkout__order__total">Total <span>${{$total}}</span> + 10% VAT</div>
-                                <div class="checkout__input__checkbox">
-                                    <label for="acc-or">
-                                        Create an account?
-                                        <input type="checkbox" id="acc-or">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt
-                                    ut labore et dolore magna aliqua.</p>
+
+
                                 <div class="checkout__input__checkbox">
                                     <label for="payment">
-                                        Check Payment
-                                        <input type="checkbox" id="payment">
+                                        COD
+                                        <input name="payment_method" type="radio" id="payment" value="COD" @if(old("payment_method")=="COD") checked  @endif>
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
                                 <div class="checkout__input__checkbox">
                                     <label for="paypal">
                                         Paypal
-                                        <input type="checkbox" id="paypal">
+                                        <input name="payment_method" value="Paypal" type="radio" id="paypal"@if(old("payment_method")=="Paypal") checked  @endif>
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
+                                @error("payment_method")
+                                <p class="text-danger"><i>{{$message}}</i></p>
+                                @enderror
                                 <button type="submit" class="site-btn">PLACE ORDER</button>
 
                             </div>

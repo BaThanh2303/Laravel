@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -108,8 +109,33 @@ class HomeController extends Controller
         }
         return redirect()->back();
     }
-    public function editCart(){
+    public function placeOrder(Request $request){
+        $request->validate([
+           "full_name"=>"required|min:6",
+           "address"=>"required",
+           "tel"=>"required|min:9|max:11",
+           "email"=>"required",
+            "shipping_method"=>"required",
+            "payment_method"=>"required",
 
+        ],[
+            "required"=>"Vui lòng nhập thông tin"
+        ]);
+        $cart = session()->has("cart")?session("cart"):[];
+        $subtotal = 0;
+        foreach ($cart as $item){
+            $subtotal += $item->price * $item->buy_qty;
+        }
+        $total = $subtotal*1.1; // vat: 10%
+        Order::create([
+            "grand_total"=>$total,
+            "full_name"=>$request->get("full_name"),
+            "tel"=>$request->get("tel"),
+            "address"=>$request->get("address"),
+            "shipping_method"=>$request->get("shipping_method"),
+            "payment_method"=>$request->get("payment_medthod"),
+
+        ]);
     }
 
 }

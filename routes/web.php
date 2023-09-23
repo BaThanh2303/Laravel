@@ -25,3 +25,4 @@ Route::get("/cart", [\App\Http\Controllers\HomeController::class,"shopping_cart"
 Route::get("/category/{category:slug}",[\App\Http\Controllers\HomeController::class,"category"]);
 Route::get("/add-to-cart/{product}", [\App\Http\Controllers\HomeController::class,"addToCart"]);
 Route::get("/remove-cart/{product}",[\App\Http\Controllers\HomeController::class,"RemoveCart"]);
+Route::post("/checkout",[\App\Http\Controllers\HomeController::class,"placeOrder"]);
