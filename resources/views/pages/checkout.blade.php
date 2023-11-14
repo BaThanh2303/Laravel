@@ -47,7 +47,7 @@
 
                             <div class="checkout__input">
                                 <p>Address<span>*</span></p>
-                                <input type="text" name="address" placeholder="Address" class="checkout__input__add" >
+                                <input type="text" name="address" placeholder="Address" value="{{old("full_name")}}" class="checkout__input__add" >
                                 @error("address")
                                 <p class="text-danger"><i>{{$message}}</i></p>
                                 @enderror
@@ -63,7 +63,7 @@
                                     </div>
                                         <div class="checkout__input">
                                             <p>Email<span>*</span></p>
-                                            <input name="email" type="email" placeholder="Email">
+                                            <input name="email" type="email" placeholder="Email" value="{{old("email")}}">
                                             @error("email")
                                             <p class="text-danger"><i>{{$message}}</i></p>
                                             @enderror

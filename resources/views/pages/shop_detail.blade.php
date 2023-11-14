@@ -52,6 +52,8 @@
                     <form action="{{url("/add-to-cart",["product"=>$product->id])}}" method="get">
                     <div class="product__details__text">
                         <h3>{{$product->name}}</h3>
+                        <h5>Category: {{$product->Category->name}}</h5>
+                        <p>Đã bán: {{$product->Orders->count()}}</p>
                         <div class="product__details__rating">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -62,6 +64,7 @@
                         </div>
                         <div class="product__details__price">${{$product->price}}</div>
                         <p>{{$product->description}}</p>
+                        <p>Còn: {{$product->qty}}</p>
                         <div class="product__details__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">

@@ -29,7 +29,12 @@ class DatabaseSeeder extends Seeder
         // ]);
       // \App\Models\Category::factory(10)->create();
         //Product::factory(1000)->create();
-        User::factory(10)->create();
+        User::factory()->create([
+            'name' => 'admin',
+            'email'=>'admin@gmail.com',
+            'password'=>bcrypt('12345678'),
+            'role'=>'ADMIN'
+        ]);
         \App\Models\Category::factory(10)->create();
         \App\Models\Product::factory(1000)->create();
         \App\Models\Order::factory(100)->create();
